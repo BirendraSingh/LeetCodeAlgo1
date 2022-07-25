@@ -21,4 +21,24 @@ public class LC876MidNode {
         return slow;
             
     }
+
+	/*
+	 * remove nth node from the end
+	 */
+	public ListNode removeNthFromEnd(ListNode head, int n) {
+        ListNode slow = head;
+        ListNode fast = head;
+        while(n>0){
+            fast = fast.next;
+            n--;
+        }
+        if(fast == null)
+            return head.next;
+        while(fast.next !=null){
+            slow = slow.next;
+            fast = fast.next;
+        }
+        slow.next = slow.next.next;
+        return head;
+    }
 }
