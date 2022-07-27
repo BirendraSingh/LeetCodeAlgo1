@@ -61,6 +61,9 @@ public class TreeTraversal {
 		return result;
     }
 
+	/**
+	 * Level order traversal or BFS
+	 */
 	public List<List<Integer>> levelOrder(TreeNode root) {
         List<List<Integer>> result = new ArrayList<List<Integer>>();
         Queue<TreeNode> queue = new LinkedList<TreeNode>();
@@ -79,4 +82,51 @@ public class TreeTraversal {
         }
         return result;
     }
+
+	// Find the depth of the tree
+	// Will use bottom up approach
+	public int findDepth(TreeNode root) {
+		if(root == null)
+			return 0;	
+		int l = findDepth(root.left);
+		int r = findDepth(root.right);
+		return Math.max(l,r)+1;
+	}
+
+	// Symmetric tree using recursion or DFS
+	public boolean isSymmetric(TreeNode root) {
+		if(root == null)
+			return true;
+		return isSymmetrical(root.left, root.right);
+	}
+
+	private boolean isSymmetrical(TreeNode left, TreeNode right) {
+		if(left==null || right == null)
+			return left == right;
+		if(left.val!=right.val) return false;
+		return isSymmetrical(left.left,right.right) && isSymmetrical(left.right,right.left);
+	}
+	
+	// Symmetric using Iteration or BFS
+	public boolean isSymmetricBFS(TreeNode root) {
+		if(root == null)
+			return true;
+		Queue<TreeNode> queue = new LinkedList<TreeNode>();
+		queue.add(root.left);
+		queue.add(root.right);
+		while(!queue.isEmpty()) {
+			TreeNode left = queue.poll();
+			TreeNode right = queue.poll();
+			if(left==null && right == null)
+				continue;
+			if(left==null || right == null || left.val !=right.val)
+				return false;
+			queue.add(left.left);
+			queue.add(right.right);
+			queue.add(left.right);
+			queue.add(right.left);
+		}
+		return false;
+	}
+	
 }
